@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YNG LITE Retreat 2025</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #94cb3c;
+            --secondary: #023a5b;
+            --accent: #ffffff;
+            --text-dark: #333;
+            --text-light: #666;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--secondary);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar a {
+            color: var(--accent);
+            padding: 16px 20px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar a.active {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        /* Header */
+        .header-section {
+            background: linear-gradient(135deg, var(--secondary) 0%, #034a73 100%);
+            color: var(--accent);
+            padding: 100px 20px 60px;
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .header-section h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header-section p {
+            font-size: 1.2em;
+            font-weight: 300;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* Cards */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: var(--accent);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            border: 3px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(148, 203, 60, 0.3);
+            border-color: var(--primary);
+        }
+
+        .feature-card i {
+            font-size: 3em;
+            color: var(--primary);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover i {
+            transform: scale(1.1);
+            color: var(--secondary);
+        }
+
+        .feature-card h3 {
+            color: var(--secondary);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Instructions Section */
+        .instructions-section {
+            background: var(--accent);
+            border-radius: 20px;
+            padding: 0;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+
+        .instructions-section.active {
+            max-height: 1000px;
+            padding: 30px;
+        }
+
+        .instructions-section h3 {
+            color: var(--secondary);
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .instructions-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .instructions-section li {
+            padding: 15px;
+            margin: 10px 0;
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .instructions-section li i {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary);
+            color: var(--accent);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: var(--secondary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-section h1 {
+                font-size: 2em;
+            }
+
+            .header-section p {
+                font-size: 1em;
+            }
+
+            .navbar a {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+
+            .scroll-top {
+                width: 45px;
+                height: 45px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+        <a href="schedule.html"><i class="fas fa-calendar-alt"></i> Schedule</a>
+        <a href="groups.html"><i class="fas fa-users"></i> Groups</a>
+    </div>
+
+    <!-- Header Section -->
+    <div class="header-section">
+        <h1><i class="fas fa-mountain"></i> Welcome to YNG LITE Retreat 2025</h1>
+        <p>Your quick guide through the 4-day journey</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Feature Cards -->
+        <div class="card-container">
+            <!-- Instructions Card -->
+            <div class="feature-card" onclick="toggleInstructions()">
+                <i class="fas fa-info-circle"></i>
+                <h3>Instructions</h3>
+                <p>Click to view retreat guidelines and important information</p>
+            </div>
+
+            <!-- Schedule Card -->
+            <div class="feature-card" onclick="location.href='schedule.html'">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Schedule</h3>
+                <p>View the complete 4-day retreat schedule and activities</p>
+            </div>
+
+            <!-- Groups Card -->
+            <div class="feature-card" onclick="location.href='groups.html'">
+                <i class="fas fa-users"></i>
+                <h3>Find Your Groups</h3>
+                <p>Search for your name and discover your assigned group</p>
+            </div>
+        </div>
+
+        <!-- Instructions Section (Expandable) -->
+        <div class="instructions-section" id="instructionsPanel">
+            <h3><i class="fas fa-clipboard-list"></i> Retreat Instructions</h3>
+            <ul>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <strong>Check-in Time:</strong> Please arrive between 2:00 PM - 4:00 PM on Day 1
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <strong>What to Bring:</strong> Comfortable clothing, toiletries, Bible, notebook, and an open heart
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <strong>Meals:</strong> All meals are provided. Please inform us of any dietary restrictions
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <strong>Group Activities:</strong> Find your group using the "Find Your Groups" section
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <strong>Mobile Phones:</strong> We encourage minimal phone usage to maximize your retreat experience
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <strong>Emergency Contact:</strong> For urgent matters, contact the retreat coordinator at [Phone Number]
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><i class="fas fa-heart"></i> YNG LITE Retreat 2025</p>
+        <p>&copy; 2025 All Rights Reserved</p>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Toggle Instructions
+        function toggleInstructions() {
+            const panel = document.getElementById('instructionsPanel');
+            panel.classList.toggle('active');
+        }
+
+        // Scroll to Top Functionality
+        window.onscroll = function() {
+            const scrollTop = document.getElementById('scrollTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTop.classList.add('show');
+            } else {
+                scrollTop.classList.remove('show');
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>

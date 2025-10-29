@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule - YNG LITE Retreat 2025</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #94cb3c;
+            --secondary: #023a5b;
+            --accent: #ffffff;
+            --text-dark: #333;
+            --text-light: #666;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--secondary);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar a {
+            color: var(--accent);
+            padding: 16px 20px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar a.active {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        /* Header */
+        .header-section {
+            background: linear-gradient(135deg, var(--secondary) 0%, #034a73 100%);
+            color: var(--accent);
+            padding: 100px 20px 60px;
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .header-section h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .header-section p {
+            font-size: 1.2em;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* Day Accordion */
+        .day-accordion {
+            margin-bottom: 20px;
+        }
+
+        .accordion-button {
+            background: var(--accent);
+            color: var(--secondary);
+            padding: 25px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            font-size: 1.3em;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-button:hover {
+            background: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .accordion-button.active {
+            background: var(--primary);
+            border-radius: 15px 15px 0 0;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-button.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            background: var(--accent);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .accordion-content.active {
+            max-height: 2000px;
+            padding: 20px 25px;
+        }
+
+        /* Activity Card */
+        .activity {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .activity:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .activity-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .activity-time {
+            background: var(--secondary);
+            color: var(--accent);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .activity-title {
+            color: var(--secondary);
+            font-size: 1.2em;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .activity-location {
+            color: var(--text-light);
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .activity-description {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary);
+            color: var(--accent);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: var(--secondary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-section h1 {
+                font-size: 2em;
+            }
+
+            .accordion-button {
+                font-size: 1.1em;
+                padding: 20px;
+            }
+
+            .activity-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .navbar a {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="navbar">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="schedule.html" class="active"><i class="fas fa-calendar-alt"></i> Schedule</a>
+        <a href="groups.html"><i class="fas fa-users"></i> Groups</a>
+    </div>
+
+    <!-- Header -->
+    <div class="header-section">
+        <h1><i class="fas fa-calendar-alt"></i> 4-Day Retreat Schedule</h1>
+        <p>Your complete guide to activities and timings</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Day 1 -->
+        <div class="day-accordion">
+            <button class="accordion-button" onclick="toggleAccordion(0)">
+                <span><i class="fas fa-calendar-day"></i> Day 1 - Arrival & Welcome</span>
+                <i class="fas fa-chevron-down accordion-icon"></i>
+            </button>
+            <div class="accordion-content">
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 2:00 PM - 4:00 PM
+                        </div>
+                        <div class="activity-title">Registration & Check-in</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Main Lobby
+                    </div>
+                    <div class="activity-description">
+                        Arrive, register, and settle into your rooms. Collect your welcome kit and name badge.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 4:30 PM - 6:00 PM
+                        </div>
+                        <div class="activity-title">Opening Session & Ice Breakers</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Main Hall
+                    </div>
+                    <div class="activity-description">
+                        Welcome address, retreat overview, and fun ice-breaking activities to get to know each other.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 6:30 PM - 7:30 PM
+                        </div>
+                        <div class="activity-title">Dinner</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Dining Hall
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 8:00 PM - 9:30 PM
+                        </div>
+                        <div class="activity-title">Evening Worship & Message</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Main Hall
+                    </div>
+                    <div class="activity-description">
+                        Opening worship service with uplifting music and an inspiring message to kick off the retreat.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 10:00 PM
+                        </div>
+                        <div class="activity-title">Lights Out</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-accordion">
+            <button class="accordion-button" onclick="toggleAccordion(1)">
+                <span><i class="fas fa-calendar-day"></i> Day 2 - Growth & Fellowship</span>
+                <i class="fas fa-chevron-down accordion-icon"></i>
+            </button>
+            <div class="accordion-content">
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 7:00 AM - 8:00 AM
+                        </div>
+                        <div class="activity-title">Morning Devotion & Prayer</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Chapel
+                    </div>
+                    <div class="activity-description">
+                        Start the day with quiet reflection, scripture reading, and group prayer.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 8:00 AM - 9:00 AM
+                        </div>
+                        <div class="activity-title">Breakfast</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Dining Hall
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 9:30 AM - 11:00 AM
+                        </div>
+                        <div class="activity-title">Workshop Session 1</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Various Rooms
+                    </div>
+                    <div class="activity-description">
+                        Choose from various workshops on leadership, faith, relationships, and personal growth.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 11:15 AM - 12:30 PM
+                        </div>
+                        <div class="activity-title">Small Group Discussions</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Group Rooms
+                    </div>
+                    <div class="activity-description">
+                        Meet with your assigned group for deeper discussions and sharing.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 12:30 PM - 2:00 PM
+                        </div>
+                        <div class="activity-title">Lunch & Free Time</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Dining Hall & Grounds
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 2:30 PM - 4:30 PM
+                        </div>
+                        <div class="activity-title">Outdoor Activities & Team Building</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Sports Field
+                    </div>
+                    <div class="activity-description">
+                        Engage in fun outdoor games, team challenges, and bonding activities.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 5:00 PM - 6:00 PM
+                        </div>
+                        <div class="activity-title">Personal Reflection Time</div>
+                    </div>
+                    <div class="activity-description">
+                        Quiet time for journaling, prayer, and personal meditation.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 6:30 PM - 7:30 PM
+                        </div>
+                        <div class="activity-title">Dinner</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Dining Hall
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 8:00 PM - 9:30 PM
+                        </div>
+                        <div class="activity-title">Evening Session & Testimonies</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Main Hall
+                    </div>
+                    <div class="activity-description">
+                        Worship, powerful testimonies, and an impactful message.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 10:00 PM
+                        </div>
+                        <div class="activity-title">Lights Out</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-accordion">
+            <button class="accordion-button" onclick="toggleAccordion(2)">
+                <span><i class="fas fa-calendar-day"></i> Day 3 - Transformation & Service</span>
+                <i class="fas fa-chevron-down accordion-icon"></i>
+            </button>
+            <div class="accordion-content">
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 7:00 AM - 8:00 AM
+                        </div>
+                        <div class="activity-title">Morning Prayer Walk</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Nature Trail
+                    </div>
+                    <div class="activity-description">
+                        Guided prayer walk through the beautiful surroundings.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 8:00 AM - 9:00 AM
+                        </div>
+                        <div class="activity-title">Breakfast</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Dining Hall
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 9:30 AM - 11:00 AM
+                        </div>
+                        <div class="activity-title">Workshop Session 2</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Various Rooms
+                    </div>
+                    <div class="activity-description">
+                        Continue with selected workshops or choose new topics.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 11:15 AM - 12:30 PM
+                        </div>
+                        <div class="activity-title">Community Service Project</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Local Community
+                    </div>
+                    <div class="activity-description">
+                        Put faith into action through a meaningful service project.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 12:30 PM - 2:00 PM
+                        </div>
+                        <div class="activity-title">Lunch & Free Time</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Dining Hall
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 2:30 PM - 4:00 PM
+                        </div>
+                        <div class="activity-title">Creative Expression Workshop</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Arts Room
+                    </div>
+                    <div class="activity-description">
+                        Express your faith through art, music, poetry, or drama.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 4:30 PM - 6:00 PM
+                        </div>
+                        <div class="activity-title">Small Group Sharing</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Group Rooms
+                    </div>
+                    <div class="activity-description">
+                        Deeper fellowship and vulnerability within your small group.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 6:30 PM - 7:30 PM
+                        </div>
+                        <div class="activity-title">Dinner</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Dining Hall
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 8:00 PM - 10:00 PM
+                        </div>
+                        <div class="activity-title">Talent Night & Fellowship</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Main Hall
+                    </div>
+                    <div class="activity-description">
+                        Showcase your talents, enjoy performances, and celebrate together!
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 10:30 PM
+                        </div>
+                        <div class="activity-title">Lights Out</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-accordion">
+            <button class="accordion-button" onclick="toggleAccordion(3)">
+                <span><i class="fas fa-calendar-day"></i> Day 4 - Commitment & Departure</span>
+                <i class="fas fa-chevron-down accordion-icon"></i>
+            </button>
+            <div class="accordion-content">
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 7:00 AM - 8:00 AM
+                        </div>
+                        <div class="activity-title">Sunrise Service</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Outdoor Pavilion
+                    </div>
+                    <div class="activity-description">
+                        Greet the new day with worship, prayer, and reflection.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 8:00 AM - 9:00 AM
+                        </div>
+                        <div class="activity-title">Breakfast</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Dining Hall
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 9:30 AM - 10:30 AM
+                        </div>
+                        <div class="activity-title">Pack & Room Check</div>
+                    </div>
+                    <div class="activity-description">
+                        Pack your belongings and ensure rooms are clean.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 10:45 AM - 12:00 PM
+                        </div>
+                        <div class="activity-title">Closing Ceremony & Commitments</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Main Hall
+                    </div>
+                    <div class="activity-description">
+                        Final worship, sharing commitments, and sending forth with blessings.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 12:00 PM - 1:00 PM
+                        </div>
+                        <div class="activity-title">Farewell Lunch</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Dining Hall
+                    </div>
+                    <div class="activity-description">
+                        One last meal together to celebrate the journey.
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-header">
+                        <div class="activity-time">
+                            <i class="fas fa-clock"></i> 1:00 PM - 2:00 PM
+                        </div>
+                        <div class="activity-title">Departure</div>
+                    </div>
+                    <div class="activity-location">
+                        <i class="fas fa-map-marker-alt"></i> Main Lobby
+                    </div>
+                    <div class="activity-description">
+                        Farewell hugs, exchanging contacts, and heading home transformed!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><i class="fas fa-heart"></i> YNG LITE Retreat 2025</p>
+        <p>&copy; 2025 All Rights Reserved</p>
+    </div>
+
+    <!-- Scroll to Top -->
+    <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Accordion Toggle
+        function toggleAccordion(index) {
+            const buttons = document.querySelectorAll('.accordion-button');
+            const contents = document.querySelectorAll('.accordion-content');
+            
+            buttons[index].classList.toggle('active');
+            contents[index].classList.toggle('active');
+        }
+
+        // Scroll to Top
+        window.onscroll = function() {
+            const scrollTop = document.getElementById('scrollTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTop.classList.add('show');
+            } else {
+                scrollTop.classList.remove('show');
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>

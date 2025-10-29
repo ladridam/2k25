@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Groups - YNG LITE Retreat 2025</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #94cb3c;
+            --secondary: #023a5b;
+            --accent: #ffffff;
+            --text-dark: #333;
+            --text-light: #666;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--secondary);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar a {
+            color: var(--accent);
+            padding: 16px 20px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar a.active {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        /* Header */
+        .header-section {
+            background: linear-gradient(135deg, var(--secondary) 0%, #034a73 100%);
+            color: var(--accent);
+            padding: 100px 20px 60px;
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .header-section h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .header-section p {
+            font-size: 1.2em;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            background: var(--accent);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 18px 60px 18px 25px;
+            border: 3px solid var(--primary);
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(148, 203, 60, 0.3);
+            border-color: var(--secondary);
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.3em;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            text-align: center;
+            padding: 60px 20px;
+            display: none;
+        }
+
+        .loading-spinner.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Groups Grid */
+        .groups-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        /* Group Card */
+        .group-card {
+            background: var(--accent);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .group-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(148, 203, 60, 0.3);
+            border-color: var(--primary);
+        }
+
+        .group-card.highlight {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #ffffff 0%, #f0ffd4 100%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .group-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .group-number {
+            background: var(--secondary);
+            color: var(--accent);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .group-icon {
+            color: var(--primary);
+            font-size: 2em;
+        }
+
+        .group-leader {
+            margin: 15px 0;
+        }
+
+        .group-leader-label {
+            color: var(--text-light);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .group-leader-name {
+            color: var(--secondary);
+            font-size: 1.3em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .group-members {
+            margin-top: 20px;
+        }
+
+        .members-label {
+            color: var(--text-light);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .members-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .member-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .member-item.highlight {
+            background: var(--primary);
+            color: var(--secondary);
+            font-weight: 600;
+            transform: translateX(5px);
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            display: none;
+        }
+
+        .no-results.show {
+            display: block;
+        }
+
+        .no-results i {
+            font-size: 4em;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .no-results h3 {
+            color: var(--secondary);
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .no-results p {
+            color: var(--text-light);
+            font-size: 1.1em;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary);
+            color: var(--accent);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: var(--secondary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, var(--primary) 0%, #b8e65c 100%);
+            color: var(--secondary);
+            padding: 20px 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 5px 20px rgba(148, 203, 60, 0.3);
+        }
+
+        .info-box i {
+            font-size: 2em;
+        }
+
+        .info-box-text h4 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-section h1 {
+                font-size: 2em;
+            }
+
+            .groups-container {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar a {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+
+            .search-box input {
+                font-size: 1em;
+                padding: 15px 50px 15px 20px;
+            }
+
+            .info-box {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="navbar">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="schedule.html"><i class="fas fa-calendar-alt"></i> Schedule</a>
+        <a href="groups.html" class="active"><i class="fas fa-users"></i> Groups</a>
+    </div>
+
+    <!-- Header -->
+    <div class="header-section">
+        <h1><i class="fas fa-users"></i> Find Your Group</h1>
+        <p>Search your name to discover your assigned group</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Info Box -->
+        <div class="info-box">
+            <i class="fas fa-info-circle"></i>
+            <div class="info-box-text">
+                <h4>How to Find Your Group</h4>
+                <p>Simply type your name in the search box below. Your group will be highlighted automatically!</p>
+            </div>
+        </div>
+
+        <!-- Search Container -->
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search your name..." autocomplete="off">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner"></div>
+            <p style="color: var(--text-light); font-size: 1.1em;">Loading groups...</p>
+        </div>
+
+        <!-- No Results Message -->
+        <div class="no-results" id="noResults">
+            <i class="fas fa-user-slash"></i>
+            <h3>No Matching Name Found</h3>
+            <p>Please check your spelling and try again</p>
+        </div>
+
+        <!-- Groups Container -->
+        <div class="groups-container" id="groupsContainer"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><i class="fas fa-heart"></i> YNG LITE Retreat 2025</p>
+        <p>&copy; 2025 All Rights Reserved</p>
+    </div>
+
+    <!-- Scroll to Top -->
+    <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // ====================================
+        // CONFIGURATION
+        // ====================================
+        // Replace with your Google Sheet ID and Sheet Name
+        const SHEET_ID = '1_5s-8f0_efeciil5Zx-87k0C0-Sj0IvCxS9N6fTJvfQ';
+        const SHEET_NAME = 'Sheet1';
+        const SHEET_URL = `https://opensheet.elk.sh/${SHEET_ID}/${SHEET_NAME}`;
+
+        // Expected columns in your Google Sheet:
+        // - Group (or Group Number)
+        // - Leader (or Leader Name)
+        // - Members (comma-separated names) OR individual member columns (Member1, Member2, etc.)
+
+        // ====================================
+        // GLOBAL VARIABLES
+        // ====================================
+        let allGroups = [];
+        let allMembers = [];
+
+        // ====================================
+        // FETCH AND PROCESS DATA
+        // ====================================
+        async function fetchGroups() {
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const groupsContainer = document.getElementById('groupsContainer');
+            const noResults = document.getElementById('noResults');
+
+            try {
+                loadingSpinner.classList.add('show');
+                
+                const response = await fetch(SHEET_URL);
+                if (!response.ok) throw new Error('Failed to fetch data');
+                
+                const data = await response.json();
+                
+                // Process the data based on your sheet structure
+                allGroups = processSheetData(data);
+                
+                // Create member index for quick searching
+                allMembers = createMemberIndex(allGroups);
+                
+                // Display all groups
+                displayGroups(allGroups);
+                
+                loadingSpinner.classList.remove('show');
+            } catch (error) {
+                console.error('Error fetching groups:', error);
+                loadingSpinner.classList.remove('show');
+                groupsContainer.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3em; color: #e74c3c; margin-bottom: 20px;"></i>
+                        <h3 style="color: var(--secondary); margin-bottom: 10px;">Unable to Load Groups</h3>
+                        <p style="color: var(--text-light);">Please check your internet connection or contact the administrator.</p>
+                        <p style="color: var(--text-light); margin-top: 10px; font-size: 0.9em;">Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // ====================================
+        // PROCESS SHEET DATA
+        // ====================================
+        function processSheetData(data) {
+            const groups = [];
+            
+            data.forEach(row => {
+                // Flexible column name matching
+                const groupNumber = row.Group || row['Group Number'] || row.group || '';
+                const leaderName = row.Leader || row['Leader Name'] || row.leader || '';
+                
+                // Handle different member column formats
+                let members = [];
+                
+                // Option 1: Single "Members" column with comma-separated values
+                if (row.Members || row.members) {
+                    const memberString = row.Members || row.members;
+                    members = memberString.split(',').map(m => m.trim()).filter(m => m);
+                }
+                // Option 2: Individual member columns (Member1, Member2, etc.)
+                else {
+                    for (let i = 1; i <= 20; i++) {
+                        const memberKey = `Member${i}`;
+                        const memberValue = row[memberKey] || row[memberKey.toLowerCase()];
+                        if (memberValue && memberValue.trim()) {
+                            members.push(memberValue.trim());
+                        }
+                    }
+                }
+                
+                if (groupNumber && leaderName) {
+                    groups.push({
+                        number: groupNumber,
+                        leader: leaderName,
+                        members: members
+                    });
+                }
+            });
+            
+            // Sort by group number
+            groups.sort((a, b) => {
+                const numA = parseInt(a.number) || 0;
+                const numB = parseInt(b.number) || 0;
+                return numA - numB;
+            });
+            
+            return groups;
+        }
+
+        // ====================================
+        // CREATE MEMBER INDEX
+        // ====================================
+        function createMemberIndex(groups) {
+            const memberIndex = [];
+            
+            groups.forEach(group => {
+                group.members.forEach(member => {
+                    memberIndex.push({
+                        name: member.toLowerCase(),
+                        groupNumber: group.number,
+                        isLeader: false
+                    });
+                });
+                
+                // Add leader to index
+                memberIndex.push({
+                    name: group.leader.toLowerCase(),
+                    groupNumber: group.number,
+                    isLeader: true
+                });
+            });
+            
+            return memberIndex;
+        }
+
+        // ====================================
+        // DISPLAY GROUPS
+        // ====================================
+        function displayGroups(groups, highlightName = '') {
+            const container = document.getElementById('groupsContainer');
+            const noResults = document.getElementById('noResults');
+            
+            if (groups.length === 0) {
+                container.innerHTML = '';
+                noResults.classList.add('show');
+                return;
+            }
+            
+            noResults.classList.remove('show');
+            
+            container.innerHTML = groups.map(group => {
+                const shouldHighlight = highlightName && 
+                    (group.leader.toLowerCase().includes(highlightName) ||
+                     group.members.some(m => m.toLowerCase().includes(highlightName)));
+                
+                const membersHTML = group.members.map(member => {
+                    const isHighlighted = highlightName && 
+                        member.toLowerCase().includes(highlightName);
+                    return `<li class="member-item ${isHighlighted ? 'highlight' : ''}">${member}</li>`;
+                }).join('');
+                
+                const leaderHighlight = highlightName && 
+                    group.leader.toLowerCase().includes(highlightName);
+                
+                return `
+                    <div class="group-card ${shouldHighlight ? 'highlight' : ''}">
+                        <div class="group-header">
+                            <div class="group-number">Group ${group.number}</div>
+                            <i class="fas fa-users group-icon"></i>
+                        </div>
+                        <div class="group-leader">
+                            <div class="group-leader-label">Group Leader</div>
+                            <div class="group-leader-name ${leaderHighlight ? 'highlight' : ''}">
+                                <i class="fas fa-user-tie"></i>
+                                ${group.leader}
+                            </div>
+                        </div>
+                        <div class="group-members">
+                            <div class="members-label">
+                                <i class="fas fa-users"></i>
+                                Members (${group.members.length})
+                            </div>
+                            <ul class="members-list">
+                                ${membersHTML}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ====================================
+        // SEARCH FUNCTIONALITY
+        // ====================================
+        function handleSearch(searchTerm) {
+            const term = searchTerm.toLowerCase().trim();
+            
+            if (!term) {
+                displayGroups(allGroups);
+                return;
+            }
+            
+            // Find groups that contain the search term
+            const matchingGroups = allGroups.filter(group => {
+                return group.leader.toLowerCase().includes(term) ||
+                       group.members.some(m => m.toLowerCase().includes(term));
+            });
+            
+            if (matchingGroups.length === 0) {
+                document.getElementById('groupsContainer').innerHTML = '';
+                document.getElementById('noResults').classList.add('show');
+            } else {
+                displayGroups(matchingGroups, term);
+                
+                // Scroll to first highlighted card
+                setTimeout(() => {
+                    const firstHighlight = document.querySelector('.group-card.highlight');
+                    if (firstHighlight) {
+                        firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 100);
+            }
+        }
+
+        // ====================================
+        // EVENT LISTENERS
+        // ====================================
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            handleSearch(e.target.value);
+        });
+
+        // Scroll to Top
+        window.onscroll = function() {
+            const scrollTop = document.getElementById('scrollTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTop.classList.add('show');
+            } else {
+                scrollTop.classList.remove('show');
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // ====================================
+        // INITIALIZE
+        // ====================================
+        // Load groups when page loads
+        fetchGroups();
+    </script>
+</body>
+</html>
