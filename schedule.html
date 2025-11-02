@@ -190,6 +190,65 @@
             margin-top: 10px;
         }
 
+        /* Locked Day Styling */
+        .day-locked {
+            position: relative;
+        }
+
+        .day-locked .accordion-button {
+            background: #f0f0f0;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .day-locked .accordion-button:hover {
+            background: #f0f0f0;
+            transform: none;
+        }
+
+        .lock-icon {
+            position: absolute;
+            top: 50%;
+            right: 70px;
+            transform: translateY(-50%);
+            color: #ccc;
+            font-size: 1.2em;
+        }
+
+        .unlock-date {
+            font-size: 0.8em;
+            color: #999;
+            margin-top: 5px;
+            font-weight: normal;
+        }
+
+        /* Countdown Banner */
+        .countdown-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, #b8e65c 100%);
+            color: var(--secondary);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(148, 203, 60, 0.3);
+        }
+
+        .countdown-banner h3 {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .countdown-timer {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .countdown-message {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
         /* Footer */
         .footer {
             background: var(--secondary);
@@ -249,6 +308,10 @@
                 padding: 12px 15px;
                 font-size: 0.9em;
             }
+
+            .lock-icon {
+                right: 60px;
+            }
         }
     </style>
 </head>
@@ -268,8 +331,15 @@
 
     <!-- Main Content -->
     <div class="main-content">
+        <!-- Countdown Banner -->
+        <div class="countdown-banner" id="countdownBanner">
+            <h3><i class="fas fa-clock"></i> Next Schedule Unlocks In:</h3>
+            <div class="countdown-timer" id="countdownTimer"></div>
+            <div class="countdown-message" id="countdownMessage"></div>
+        </div>
+
         <!-- Day 1 -->
-        <div class="day-accordion">
+        <div class="day-accordion" id="day1">
             <button class="accordion-button" onclick="toggleAccordion(0)">
                 <span><i class="fas fa-calendar-day"></i> Day 1 - Arrival & Welcome</span>
                 <i class="fas fa-chevron-down accordion-icon"></i>
@@ -356,7 +426,7 @@
                         <div class="activity-title">Dinner</div>
                     </div>
                     <div class="activity-location">
-                        <i class="fas fa-map    -marker-alt"></i> Dining Hall
+                        <i class="fas fa-map-marker-alt"></i> Dining Hall
                     </div>
                 </div>
 
@@ -387,13 +457,13 @@
         </div>
 
         <!-- Day 2 -->
-        <div class="day-accordion">
-            <button class="accordion-button" onclick="toggleAccordion(1)">
+        <div class="day-accordion day-locked" id="day2">
+            <button class="accordion-button">
                 <span><i class="fas fa-calendar-day"></i> Day 2</span>
                 <i class="fas fa-chevron-down accordion-icon"></i>
+                <i class="fas fa-lock lock-icon"></i>
             </button>
             <div class="accordion-content">
-
                 <div class="activity">
                     <div class="activity-header">
                         <div class="activity-time">
@@ -411,7 +481,7 @@
                         <div class="activity-time">
                             <i class="fas fa-clock"></i> 9:30 AM - 10:30 AM
                         </div>
-                        <div class="activity-title">Devotinal | Worship</div>
+                        <div class="activity-title">Devotional | Worship</div>
                     </div>
                     <div class="activity-location">
                         <i class="fas fa-map-marker-alt"></i> Main Hall
@@ -473,7 +543,7 @@
                         <div class="activity-title">Break</div>
                     </div>
                     <div class="activity-location">
-                        <i class="fas fa-map -marker-alt"></i> Lounge Area
+                        <i class="fas fa-map-marker-alt"></i> Lounge Area
                     </div>
                 </div>
 
@@ -548,10 +618,11 @@
         </div>
         
         <!-- Day 3 -->
-        <div class="day-accordion">
-            <button class="accordion-button" onclick="toggleAccordion(2)">
+        <div class="day-accordion day-locked" id="day3">
+            <button class="accordion-button">
                 <span><i class="fas fa-calendar-day"></i> Day 3 </span>
                 <i class="fas fa-chevron-down accordion-icon"></i>
+                <i class="fas fa-lock lock-icon"></i>
             </button>
             <div class="accordion-content">
                 <div class="activity">
@@ -720,27 +791,13 @@
         </div>
 
         <!-- Day 4 -->
-        <div class="day-accordion">
-            <button class="accordion-button" onclick="toggleAccordion(3)">
+        <div class="day-accordion day-locked" id="day4">
+            <button class="accordion-button">
                 <span><i class="fas fa-calendar-day"></i> Day 4 - Departure</span>
                 <i class="fas fa-chevron-down accordion-icon"></i>
+                <i class="fas fa-lock lock-icon"></i>
             </button>
             <div class="accordion-content">
-                <!--div class="activity">
-                    <div class="activity-header">
-                        <div class="activity-time">
-                            <i class="fas fa-clock"></i> 7:00 AM - 8:00 AM
-                        </div>
-                        <div class="activity-title">Sunrise Service</div>
-                    </div>
-                    <div class="activity-location">
-                        <i class="fas fa-map-marker-alt"></i> Outdoor Pavilion
-                    </div>
-                    <div class="activity-description">
-                        Greet the new day with worship, prayer, and reflection.
-                    </div>
-                </div-->
-
                 <div class="activity">
                     <div class="activity-header">
                         <div class="activity-time">
@@ -758,56 +815,12 @@
                         <div class="activity-time">
                             <i class="fas fa-clock"></i> 9:30 AM - 10:30 AM
                         </div>
-                        <div class="activity-title">Closing Devotinal</div>
+                        <div class="activity-title">Closing Devotional</div>
                     </div>
                     <div class="activity-location">
                         <i class="fas fa-map-marker-alt"></i> Hotel Rooms
+                    </div>
                 </div>
-
-                <!--div class="activity">
-                    <div class="activity-header">
-                        <div class="activity-time">
-                            <i class="fas fa-clock"></i> 10:45 AM - 12:00 PM
-                        </div>
-                        <div class="activity-title">Closing Ceremony & Commitments</div>
-                    </div>
-                    <div class="activity-location">
-                        <i class="fas fa-map-marker-alt"></i> Main Hall
-                    </div>
-                    <div class="activity-description">
-                        Final worship, sharing commitments, and sending forth with blessings.
-                    </div>
-                </div-->
-
-                <!--div class="activity">
-                    <div class="activity-header">
-                        <div class="activity-time">
-                            <i class="fas fa-clock"></i> 12:00 PM - 1:00 PM
-                        </div>
-                        <div class="activity-title">Farewell Lunch</div>
-                    </div>
-                    <div class="activity-location">
-                        <i class="fas fa-map-marker-alt"></i> Dining Hall
-                    </div>
-                    <div class="activity-description">
-                        One last meal together to celebrate the journey.
-                    </div>
-                </div-->
-
-                <!--div class="activity">
-                    <div class="activity-header">
-                        <div class="activity-time">
-                            <i class="fas fa-clock"></i> 1:00 PM - 2:00 PM
-                        </div>
-                        <div class="activity-title">Departure</div>
-                    </div>
-                    <div class="activity-location">
-                        <i class="fas fa-map-marker-alt"></i> Main Lobby
-                    </div>
-                    <div class="activity-description">
-                        Farewell hugs, exchanging contacts, and heading home transformed!
-                    </div>
-                </div-->
             </div>
         </div>
     </div>
@@ -824,16 +837,135 @@
     </div>
 
     <script>
-        // Accordion Toggle
+        // ====================================
+        // CONFIGURATION
+        // ====================================
+        // Set your retreat start date (YYYY, MM-1, DD)
+        const RETREAT_START_DATE = new Date(2025, 10, 7); // March 15, 2025 (Note: months are 0-indexed)
+        
+        // ====================================
+        // SCHEDULE UNLOCK LOGIC
+        // ====================================
+        function initializeSchedule() {
+            const today = new Date();
+            const startDate = RETREAT_START_DATE;
+            
+            // Calculate days difference
+            const timeDiff = today.getTime() - startDate.getTime();
+            const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+            
+            // Unlock days based on current date
+            if (daysDiff >= 0) {
+                // Day 1 is always available
+                unlockDay(1);
+                
+                if (daysDiff >= 1) {
+                    unlockDay(2);
+                }
+                
+                if (daysDiff >= 2) {
+                    unlockDay(3);
+                }
+                
+                if (daysDiff >= 3) {
+                    unlockDay(4);
+                }
+            }
+            
+            // Set up countdown for next day
+            setupCountdown(daysDiff);
+        }
+        
+        function unlockDay(dayNumber) {
+            const dayElement = document.getElementById(`day${dayNumber}`);
+            if (dayElement) {
+                dayElement.classList.remove('day-locked');
+                const button = dayElement.querySelector('.accordion-button');
+                const lockIcon = dayElement.querySelector('.lock-icon');
+                
+                if (lockIcon) {
+                    lockIcon.remove();
+                }
+                
+                // Re-enable click functionality
+                button.onclick = function() { toggleAccordion(dayNumber - 1); };
+            }
+        }
+        
+        function setupCountdown(daysDiff) {
+            const countdownBanner = document.getElementById('countdownBanner');
+            const countdownTimer = document.getElementById('countdownTimer');
+            const countdownMessage = document.getElementById('countdownMessage');
+            
+            if (daysDiff < 0) {
+                // Retreat hasn't started yet
+                const timeUntilStart = RETREAT_START_DATE.getTime() - new Date().getTime();
+                startCountdown(timeUntilStart, countdownTimer, "Until Retreat Starts!");
+                countdownMessage.textContent = "Get ready for an amazing experience!";
+            } else if (daysDiff < 3) {
+                // Show countdown to next day
+                const nextDayDate = new Date(RETREAT_START_DATE);
+                nextDayDate.setDate(nextDayDate.getDate() + daysDiff + 1);
+                nextDayDate.setHours(0, 0, 0, 0); // Start of next day
+                
+                const timeUntilNextDay = nextDayDate.getTime() - new Date().getTime();
+                startCountdown(timeUntilNextDay, countdownTimer, `Until Day ${daysDiff + 2}!`);
+                countdownMessage.textContent = `Day ${daysDiff + 2} schedule will unlock soon!`;
+            } else {
+                // All days are available
+                countdownBanner.innerHTML = `
+                    <h3><i class="fas fa-check-circle"></i> All Schedules Unlocked!</h3>
+                    <p>Enjoy reviewing the complete retreat schedule.</p>
+                `;
+            }
+        }
+        
+        function startCountdown(duration, element, message) {
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = (duration + RETREAT_START_DATE.getTime()) - now;
+                
+                if (distance < 0) {
+                    element.innerHTML = "Unlocked!";
+                    location.reload(); // Refresh to show newly unlocked content
+                    return;
+                }
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                element.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        
+        // ====================================
+        // ACCORDION FUNCTIONALITY
+        // ====================================
         function toggleAccordion(index) {
             const buttons = document.querySelectorAll('.accordion-button');
             const contents = document.querySelectorAll('.accordion-content');
             
+            // Close all other accordions
+            buttons.forEach((btn, i) => {
+                if (i !== index) {
+                    btn.classList.remove('active');
+                    contents[i].classList.remove('active');
+                }
+            });
+            
+            // Toggle current accordion
             buttons[index].classList.toggle('active');
             contents[index].classList.toggle('active');
         }
-
-        // Scroll to Top
+        
+        // ====================================
+        // SCROLL TO TOP
+        // ====================================
         window.onscroll = function() {
             const scrollTop = document.getElementById('scrollTop');
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
@@ -842,13 +974,20 @@
                 scrollTop.classList.remove('show');
             }
         };
-
+        
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
         }
+        
+        // ====================================
+        // INITIALIZE
+        // ====================================
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSchedule();
+        });
     </script>
 </body>
 </html>
