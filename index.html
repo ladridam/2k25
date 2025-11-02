@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +36,7 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .navbar a {
@@ -46,7 +47,8 @@
             transition: all 0.3s ease;
         }
 
-        .navbar a:hover, .navbar a.active {
+        .navbar a:hover,
+        .navbar a.active {
             background: var(--primary);
             color: var(--secondary);
         }
@@ -93,7 +95,7 @@
             background: var(--accent);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             cursor: pointer;
             text-align: center;
@@ -130,13 +132,169 @@
             line-height: 1.6;
         }
 
+        /* Weather Widget */
+        .weather-widget {
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)),
+                url('assets/darjeeling.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: var(--accent);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeInScale 0.8s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .weather-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .weather-header i {
+            font-size: 2em;
+        }
+
+        .weather-header h3 {
+            font-size: 1.5em;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .weather-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 0 -10px;
+        }
+
+        .weather-main {
+            text-align: center;
+        }
+
+        .weather-temp {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin: 15px 0;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .weather-desc {
+            font-size: 1.2em;
+            opacity: 0.9;
+            text-transform: capitalize;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .weather-details {
+            text-align: left;
+        }
+
+        .weather-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .weather-detail:last-child {
+            border-bottom: none;
+        }
+
+        .weather-loading {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .weather-error {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .weather-update-time {
+            font-size: 0.8em;
+            opacity: 0.7;
+            margin-top: 15px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Weather icon enhancements */
+        .weather-icon i {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+        }
+
+        /* Responsive design for mobile */
+        @media (max-width: 768px) {
+            .weather-widget {
+                min-height: 250px;
+                padding: 20px;
+            }
+
+            .weather-content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .weather-details {
+                text-align: center;
+            }
+
+            .weather-temp {
+                font-size: 3em;
+            }
+
+            .weather-header h3 {
+                font-size: 1.3em;
+            }
+        }
+
         /* Instructions Section */
         .instructions-section {
             background: var(--accent);
             border-radius: 20px;
             padding: 0;
             margin: 30px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             max-height: 0;
             transition: max-height 0.5s ease, padding 0.5s ease;
@@ -203,7 +361,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             opacity: 0;
             transition: all 0.3s ease;
             z-index: 999;
@@ -225,6 +383,7 @@
                 opacity: 0;
                 transform: translateY(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -236,9 +395,20 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
             }
         }
 
@@ -261,6 +431,15 @@
                 grid-template-columns: 1fr;
             }
 
+            .weather-content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .weather-details {
+                text-align: center;
+            }
+
             .scroll-top {
                 width: 45px;
                 height: 45px;
@@ -270,6 +449,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation Bar -->
     <div class="navbar">
@@ -286,6 +466,50 @@
 
     <!-- Main Content -->
     <div class="main-content">
+        <!-- Weather Widget -->
+        <div class="weather-widget" id="weatherWidget">
+            <div class="weather-header">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Darjeeling Weather</h3>
+            </div>
+        <div class="weather-loading" id="weatherLoading">
+            <div class="spinner" style="border: 3px solid rgba(255,255,255,0.3); border-top: 3px solid var(--accent); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px;"></div>
+            <p>Loading weather data...</p>
+        </div>
+        <div class="weather-content" id="weatherContent" style="display: none;">
+            <div class="weather-main">
+                <div class="weather-icon" id="weatherIcon">
+                    <i class="fas fa-sun" style="font-size: 4em;"></i>
+                </div>
+                <div class="weather-temp" id="weatherTemp">--°C</div>
+                <div class="weather-desc" id="weatherDesc">Loading...</div>
+            </div>
+        <div class="weather-details">
+            <div class="weather-detail">
+                <span><i class="fas fa-temperature-low"></i> Feels like:</span>
+                <span id="feelsLike">--°C</span>
+            </div>
+            <div class="weather-detail">
+                <span><i class="fas fa-tint"></i> Humidity:</span>
+                <span id="humidity">--%</span>
+            </div>
+            <div class="weather-detail">
+                <span><i class="fas fa-wind"></i> Wind:</span>
+                <span id="windSpeed">-- km/h</span>
+            </div>
+            <div class="weather-detail">
+                <span><i class="fas fa-cloud-rain"></i> Rain:</span>
+                <span id="precipitation">-- mm</span>
+            </div>
+        </div>
+        </div>
+            <div class="weather-update-time" id="weatherUpdateTime"></div>
+            <div class="weather-error" id="weatherError" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Unable to load weather data. Please check your connection.</p>
+            </div>
+        </div>
+
         <!-- Feature Cards -->
         <div class="card-container">
             <!-- Instructions Card -->
@@ -320,7 +544,8 @@
                 </li>
                 <li>
                     <i class="fas fa-check-circle"></i>
-                    <strong>What to Bring:</strong> Comfortable clothing, toiletries, notebook/pen, water bottle, and an open heart
+                    <strong>What to Bring:</strong> Comfortable clothing, toiletries, notebook/pen, water bottle, and an
+                    open heart
                 </li>
                 <li>
                     <i class="fas fa-check-circle"></i>
@@ -336,7 +561,8 @@
                 </li>
                 <li>
                     <i class="fas fa-check-circle"></i>
-                    <strong>Emergency Contact:</strong> For urgent matters, contact the retreat coordinator at [Phone Number]
+                    <strong>Emergency Contact:</strong> For urgent matters, contact the retreat coordinator at [Phone
+                    Number]
                 </li>
             </ul>
         </div>
@@ -354,14 +580,151 @@
     </div>
 
     <script>
-        // Toggle Instructions
+        // ====================================
+        // WEATHER WIDGET WITH OPEN-METEO
+        // ====================================
+        async function loadWeather() {
+            // Darjeeling coordinates
+            const latitude = 27.0360;
+            const longitude = 88.2627;
+
+            // Open-Meteo API URL - NO API KEY NEEDED!
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=auto`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Weather service unavailable');
+                }
+
+                const data = await response.json();
+                displayWeather(data);
+
+            } catch (error) {
+                console.error('Error loading weather:', error);
+                showWeatherError();
+            }
+        }
+
+        function displayWeather(data) {
+            const loading = document.getElementById('weatherLoading');
+            const content = document.getElementById('weatherContent');
+            const error = document.getElementById('weatherError');
+
+            loading.style.display = 'none';
+            error.style.display = 'none';
+            content.style.display = 'grid';
+
+            const current = data.current;
+
+            // Update weather information
+            document.getElementById('weatherTemp').textContent = `${Math.round(current.temperature_2m)}°C`;
+            document.getElementById('weatherDesc').textContent = getWeatherDescription(current.weather_code);
+            document.getElementById('feelsLike').textContent = `${Math.round(current.apparent_temperature)}°C`;
+            document.getElementById('humidity').textContent = `${current.relative_humidity_2m}%`;
+            document.getElementById('windSpeed').textContent = `${Math.round(current.wind_speed_10m)} km/h`;
+            document.getElementById('precipitation').textContent = `${current.precipitation} mm`;
+
+            // Update weather icon
+            const weatherIcon = document.getElementById('weatherIcon');
+            const iconClass = getWeatherIconClass(current.weather_code);
+            weatherIcon.innerHTML = `<i class="fas ${iconClass}" style="font-size: 4em;"></i>`;
+
+            // Update timestamp
+            const updateTime = document.getElementById('weatherUpdateTime');
+            const now = new Date();
+            updateTime.textContent = `Updated: ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        }
+
+        function getWeatherDescription(weatherCode) {
+            const weatherMap = {
+                0: 'clear sky',
+                1: 'mainly clear',
+                2: 'partly cloudy',
+                3: 'overcast',
+                45: 'foggy',
+                48: 'depositing rime fog',
+                51: 'light drizzle',
+                53: 'moderate drizzle',
+                55: 'dense drizzle',
+                56: 'light freezing drizzle',
+                57: 'dense freezing drizzle',
+                61: 'slight rain',
+                63: 'moderate rain',
+                65: 'heavy rain',
+                66: 'light freezing rain',
+                67: 'heavy freezing rain',
+                71: 'slight snow fall',
+                73: 'moderate snow fall',
+                75: 'heavy snow fall',
+                77: 'snow grains',
+                80: 'slight rain showers',
+                81: 'moderate rain showers',
+                82: 'violent rain showers',
+                85: 'slight snow showers',
+                86: 'heavy snow showers',
+                95: 'thunderstorm',
+                96: 'thunderstorm with slight hail',
+                99: 'thunderstorm with heavy hail'
+            };
+
+            return weatherMap[weatherCode] || 'unknown';
+        }
+
+        function getWeatherIconClass(weatherCode) {
+            const iconMap = {
+                0: 'fa-sun',           // clear sky
+                1: 'fa-sun',           // mainly clear
+                2: 'fa-cloud-sun',     // partly cloudy
+                3: 'fa-cloud',         // overcast
+                45: 'fa-smog',         // fog
+                48: 'fa-smog',         // fog
+                51: 'fa-cloud-rain',   // drizzle
+                53: 'fa-cloud-rain',
+                55: 'fa-cloud-rain',
+                56: 'fa-cloud-rain',
+                57: 'fa-cloud-rain',
+                61: 'fa-cloud-rain',   // rain
+                63: 'fa-cloud-rain',
+                65: 'fa-cloud-showers-heavy',
+                66: 'fa-cloud-rain',
+                67: 'fa-cloud-showers-heavy',
+                71: 'fa-snowflake',    // snow
+                73: 'fa-snowflake',
+                75: 'fa-snowflake',
+                77: 'fa-snowflake',
+                80: 'fa-cloud-rain',   // rain showers
+                81: 'fa-cloud-showers-heavy',
+                82: 'fa-cloud-showers-heavy',
+                85: 'fa-snowflake',    // snow showers
+                86: 'fa-snowflake',
+                95: 'fa-bolt',         // thunderstorm
+                96: 'fa-bolt',
+                99: 'fa-bolt'
+            };
+
+            return iconMap[weatherCode] || 'fa-cloud';
+        }
+
+        function showWeatherError() {
+            const loading = document.getElementById('weatherLoading');
+            const content = document.getElementById('weatherContent');
+            const error = document.getElementById('weatherError');
+
+            loading.style.display = 'none';
+            content.style.display = 'none';
+            error.style.display = 'block';
+        }
+
+        // ====================================
+        // EXISTING FUNCTIONALITY
+        // ====================================
         function toggleInstructions() {
             const panel = document.getElementById('instructionsPanel');
             panel.classList.toggle('active');
         }
 
-        // Scroll to Top Functionality
-        window.onscroll = function() {
+        window.onscroll = function () {
             const scrollTop = document.getElementById('scrollTop');
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
                 scrollTop.classList.add('show');
@@ -371,11 +734,16 @@
         };
 
         function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // Initialize weather widget
+        document.addEventListener('DOMContentLoaded', function () {
+            loadWeather();
+            // Refresh every 30 minutes
+            setInterval(loadWeather, 30 * 60 * 1000);
+        });
     </script>
 </body>
+
 </html>
